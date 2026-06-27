@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش‌کار روزانه المپیاد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #444;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.2s;
+            background: #fafafa;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1a73e8;
+            background: #fff;
+        }
+
+        input[type="number"] {
+            width: 120px;
+            display: inline-block;
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .row>* {
+            flex: 1 1 150px;
+        }
+
+        .row .label-inline {
+            flex: 0 0 auto;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .total-box {
+            background: #e8f0fe;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #1a73e8;
+            border: 1px solid #d2e3fc;
+        }
+
+        .btn {
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            background: #1557b0;
+        }
+
+        .btn-danger {
+            background: #d32f2f;
+        }
+
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+
+        .btn-secondary {
+            background: #5f6368;
+        }
+
+        .btn-secondary:hover {
+            background: #3c4043;
+        }
+
+        .btn-success {
+            background: #0d9e6a;
+        }
+
+        .btn-success:hover {
+            background: #0a7a55;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .entry-list {
+            margin-top: 32px;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 20px;
+        }
+
+        .entry-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border-right: 4px solid #1a73e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .entry-item .info {
+            flex: 1;
+        }
+
+        .entry-item .date {
+            font-weight: 600;
+            color: #1a73e8;
+        }
+
+        .entry-item .name {
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .entry-item .total {
+            background: #e8f0fe;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-right: 8px;
+        }
+
+        .entry-item .details {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 4px;
+        }
+
+        .entry-item .delete-btn {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+
+        .entry-item .delete-btn:hover {
+            color: #b71c1c;
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #888;
+            margin: 20px 0;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .github-section {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .github-section .row {
+            margin-bottom: 8px;
+        }
+
+        .github-section input {
+            background: #fff;
+        }
+
+        .status-msg {
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .status-msg.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .status-msg.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .row>* {
+                flex: 1 1 auto;
+            }
+
+            input[type="number"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📋 گزارش‌کار روزانه المپیاد</h1>
+
+        <!-- فرم -->
+        <form id="reportForm">
+            <div class="row">
+                <div class="form-group">
+                    <label>📅 تاریخ</label>
+                    <input type="text" id="date" readonly style="background:#f0f0f0; cursor:default;">
+                </div>
+                <div class="form-group">
+                    <label>👤 نام و نام خانوادگی</label>
+                    <input type="text" id="name" placeholder="مثال: حسین کاویانی" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>⏱ فعالیت‌های آموزشی در طول روز (دقیقه)</label>
+                <div class="row">
+                    <div><span class="label-inline">کلاس:</span><input type="number" id="classMin" min="0" value="0">
+                    </div>
+                    <div><span class="label-inline">مطالعه:</span><input type="number" id="studyMin" min="0" value="0">
+                    </div>
+                    <div><span class="label-inline">آزمون:</span><input type="number" id="examMin" min="0" value="0">
+                    </div>
+                    <div><span class="label-inline">تحلیل آزمون:</span><input type="number" id="analysisMin" min="0"
+                            value="0"></div>
+                </div>
+                <div class="total-box" style="margin-top:8px;">
+                    مجموع فعالیت درسی: <span id="totalMin">0</span> دقیقه
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>⏰ ساعت بیداری صبح</label>
+                    <input type="time" id="wakeTime" value="06:40">
+                </div>
+                <div class="form-group">
+                    <label>🛌 ساعت خواب شب</label>
+                    <input type="time" id="sleepTime" value="00:30">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📱 مجموع ساعت کار با گوشی (دقیقه)</label>
+                <div class="row">
+                    <div><span class="label-inline">استفاده درسی:</span><input type="number" id="phoneEdu" min="0"
+                            value="0"></div>
+                    <div><span class="label-inline">استفاده غیردرسی:</span><input type="number" id="phoneNonEdu" min="0"
+                            value="0"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📝 توضیحات (اختیاری)</label>
+                <textarea id="description" placeholder="هر نکته یا توضیح اضافه..."></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn">💾 ذخیره محلی</button>
+                <button type="reset" class="btn btn-secondary">🔄 پاک کردن فرم</button>
+            </div>
+        </form>
+
+        <!-- بخش ذخیره در گیت‌هاب -->
+        <div class="github-section">
+            <h3 style="margin-bottom:12px; font-size:1rem;">📂 ذخیره در گیت‌هاب (فایل reports.json)</h3>
+            <div class="row">
+                <div class="form-group" style="flex:2;">
+                    <label>مالک/مخزن</label>
+                    <input type="text" id="githubRepo" placeholder="username/repo-name" value="your-username/your-repo">
+                </div>
+                <div class="form-group" style="flex:3;">
+                    <label>توکن شخصی (با دسترسی repo)</label>
+                    <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
+                </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="pushToGithubBtn" class="btn btn-success">📤 ذخیره در گیت‌هاب</button>
+                <button id="pullFromGithubBtn" class="btn btn-secondary">📥 بازیابی از گیت‌هاب</button>
+            </div>
+            <div id="githubStatus" class="status-msg"></div>
+            <div class="note">⚠️ توکن فقط در مرورگر شما ذخیره می‌شود و به سرور ارسال نمی‌شود. برای امنیت بیشتر، از توکن
+                با دسترسی محدود استفاده کنید.</div>
+        </div>
+
+        <!-- لیست گزارش‌ها -->
+        <div class="entry-list">
+            <h2 style="font-size:1.2rem; margin-bottom:12px;">📂 گزارش‌های قبلی</h2>
+            <div id="entriesContainer">
+                <p class="empty-msg">هنوز گزارشی ثبت نشده است.</p>
+            </div>
+            <div class="footer-actions">
+                <button id="exportBtn" class="btn btn-secondary">📥 خروجی JSON</button>
+                <button id="clearAllBtn" class="btn btn-danger">🗑 حذف همه</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // -------------------- توابع کمکی --------------------
+        function getTodayPersian() {
+            const now = new Date();
+            return now.toLocaleDateString('fa-IR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+        }
+
+        document.getElementById('date').value = getTodayPersian();
+
+        function updateTotal() {
+            const classMin = parseInt(document.getElementById('classMin').value) || 0;
+            const studyMin = parseInt(document.getElementById('studyMin').value) || 0;
+            const examMin = parseInt(document.getElementById('examMin').value) || 0;
+            const analysisMin = parseInt(document.getElementById('analysisMin').value) || 0;
+            const total = classMin + studyMin + examMin + analysisMin;
+            document.getElementById('totalMin').textContent = total;
+            return total;
+        }
+
+        ['classMin', 'studyMin', 'examMin', 'analysisMin'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateTotal);
+        });
+        updateTotal();
+
+        // -------------------- مدیریت داده‌های محلی (localStorage) --------------------
+        function getEntries() {
+            try {
+                return JSON.parse(localStorage.getItem('olympiad_reports')) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveEntries(entries) {
+            localStorage.setItem('olympiad_reports', JSON.stringify(entries));
+        }
+
+        function addEntry(entry) {
+            const entries = getEntries();
+            entries.push(entry);
+            saveEntries(entries);
+            renderEntries();
+        }
+
+        function deleteEntry(index) {
+            const entries = getEntries();
+            entries.splice(index, 1);
+            saveEntries(entries);
+            renderEntries();
+        }
+
+        function clearAll() {
+            if (confirm('آیا از حذف همه گزارش‌ها مطمئن هستید؟')) {
+                saveEntries([]);
+                renderEntries();
+            }
+        }
+
+        // -------------------- نمایش لیست --------------------
+        function renderEntries() {
+            const container = document.getElementById('entriesContainer');
+            const entries = getEntries();
+            if (entries.length === 0) {
+                container.innerHTML = '<p class="empty-msg">هنوز گزارشی ثبت نشده است.</p>';
+                return;
+            }
+            let html = '';
+            entries.forEach((entry, index) => {
+                html += `
+                <div class="entry-item">
+                    <div class="info">
+                        <div>
+                            <span class="date">${entry.date}</span>
+                            <span class="name">${entry.name || 'بدون نام'}</span>
+                            <span class="total">مجموع: ${entry.totalMin} دقیقه</span>
+                        </div>
+                        <div class="details">
+                            کلاس: ${entry.classMin} | مطالعه: ${entry.studyMin} | آزمون: ${entry.examMin} | تحلیل: ${entry.analysisMin}
+                            <br>
+                            بیداری: ${entry.wakeTime} | خواب: ${entry.sleepTime} | گوشی درسی: ${entry.phoneEdu} | غیردرسی: ${entry.phoneNonEdu}
+                            ${entry.description ? `<br>📝 ${entry.description}` : ''}
+                        </div>
+                    </div>
+                    <button class="delete-btn" data-index="${index}" title="حذف">✖</button>
+                </div>
+            `;
+            });
+            container.innerHTML = html;
+
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const idx = parseInt(this.dataset.index);
+                    deleteEntry(idx);
+                });
+            });
+        }
+
+        // -------------------- ذخیره فرم (محلی) --------------------
+        document.getElementById('reportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const entry = {
+                date: document.getElementById('date').value,
+                name: document.getElementById('name').value.trim(),
+                classMin: parseInt(document.getElementById('classMin').value) || 0,
+                studyMin: parseInt(document.getElementById('studyMin').value) || 0,
+                examMin: parseInt(document.getElementById('examMin').value) || 0,
+                analysisMin: parseInt(document.getElementById('analysisMin').value) || 0,
+                totalMin: updateTotal(),
+                wakeTime: document.getElementById('wakeTime').value,
+                sleepTime: document.getElementById('sleepTime').value,
+                phoneEdu: parseInt(document.getElementById('phoneEdu').value) || 0,
+                phoneNonEdu: parseInt(document.getElementById('phoneNonEdu').value) || 0,
+                description: document.getElementById('description').value.trim(),
+                timestamp: new Date().toISOString()
+            };
+
+            if (!entry.name) {
+                alert('لطفاً نام خود را وارد کنید.');
+                return;
+            }
+
+            addEntry(entry);
+            this.reset();
+            document.getElementById('date').value = getTodayPersian();
+            updateTotal();
+            alert('✅ گزارش به‌صورت محلی ذخیره شد.');
+        });
+
+        // -------------------- خروجی JSON --------------------
+        document.getElementById('exportBtn').addEventListener('click', function () {
+            const entries = getEntries();
+            if (entries.length === 0) {
+                alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+                return;
+            }
+            const dataStr = JSON.stringify(entries, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `olympiad_reports_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+
+        // -------------------- عملیات گیت‌هاب (API) --------------------
+        function showGithubStatus(message, isSuccess = true) {
+            const el = document.getElementById('githubStatus');
+            el.textContent = message;
+            el.className = 'status-msg ' + (isSuccess ? 'success' : 'error');
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 6000);
+        }
+
+        async function pushToGithub() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            if (!repo || !token) {
+                showGithubStatus('❌ لطفاً مخزن و توکن را وارد کنید.', false);
+                return;
+            }
+
+            const entries = getEntries();
+            if (entries.length === 0) {
+                showGithubStatus('❌ هیچ داده‌ای برای ذخیره وجود ندارد.', false);
+                return;
+            }
+
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/reports.json`;
+
+            try {
+                // ۱. ابتدا فایل موجود را دریافت می‌کنیم تا sha آن را داشته باشیم
+                let sha = null;
+                try {
+                    const res = await fetch(apiUrl, {
+                        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        sha = data.sha;
+                    } else if (res.status !== 404) {
+                        const err = await res.json();
+                        showGithubStatus(`❌ خطا در دریافت فایل: ${err.message || res.status}`, false);
+                        return;
+                    }
+                } catch (e) {
+                    // 404 یعنی فایل وجود ندارد، مشکلی نیست
+                }
+
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(entries, null, 2))));
+
+                const payload = {
+                    message: `به‌روزرسانی گزارش‌ها - ${new Date().toLocaleString('fa-IR')}`,
+                    content: content,
+                    branch: 'main'
+                };
+                if (sha) payload.sha = sha;
+
+                const response = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showGithubStatus('✅ داده‌ها با موفقیت در گیت‌هاب ذخیره شدند!', true);
+                } else {
+                    const err = await response.json();
+                    showGithubStatus(`❌ خطا: ${err.message || response.status}`, false);
+                }
+            } catch (error) {
+                showGithubStatus(`❌ خطا: ${error.message}`, false);
+            }
+        }
+
+        async function pullFromGithub() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            if (!repo || !token) {
+                showGithubStatus('❌ لطفاً مخزن و توکن را وارد کنید.', false);
+                return;
+            }
+
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/reports.json`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        showGithubStatus('⚠️ فایل reports.json در مخزن وجود ندارد.', false);
+                    } else {
+                        const err = await response.json();
+                        showGithubStatus(`❌ خطا: ${err.message || response.status}`, false);
+                    }
+                    return;
+                }
+
+                const data = await response.json();
+                const content = decodeURIComponent(escape(atob(data.content)));
+                const entries = JSON.parse(content);
+
+                if (!Array.isArray(entries)) {
+                    showGithubStatus('❌ فرمت داده‌ها معتبر نیست.', false);
+                    return;
+                }
+
+                saveEntries(entries);
+                renderEntries();
+                showGithubStatus(`✅ ${entries.length} گزارش از گیت‌هاب بازیابی شد.`, true);
+            } catch (error) {
+                showGithubStatus(`❌ خطا: ${error.message}`, false);
+            }
+        }
+
+        document.getElementById('pushToGithubBtn').addEventListener('click', pushToGithub);
+        document.getElementById('pullFromGithubBtn').addEventListener('click', pullFromGithub);
+
+        // بارگذاری اولیه
+        renderEntries();
+    </script>
+</body>
+
+</html>
