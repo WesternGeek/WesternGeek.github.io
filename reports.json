@@ -13,5 +13,20 @@
     "phoneNonEdu": 0,
     "description": "نکته اضافی",
     "timestamp": "2026-06-27T20:05:58.111Z"
+  },
+  {
+    "date": "۱۴۰۵ تیر ۶, شنبه",
+    "name": "حسین کاویانی",
+    "classMin": 0,
+    "studyMin": 0,
+    "examMin": 0,
+    "analysisMin": 0,
+    "totalMin": 0,
+    "wakeTime": "06:40",
+    "sleepTime": "22:30",
+    "phoneEdu": 0,
+    "phoneNonEdu": 1337,
+    "description": "",
+    "timestamp": "2026-06-27T20:21:16.873Z"
   }
 ]
