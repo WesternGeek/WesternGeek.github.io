@@ -28,5 +28,20 @@
     "phoneNonEdu": 1337,
     "description": "",
     "timestamp": "2026-06-27T20:21:16.873Z"
+  },
+  {
+    "date": "۱۴۰۵ تیر ۶, شنبه",
+    "name": "جسی",
+    "classMin": 132,
+    "studyMin": 0,
+    "examMin": 0,
+    "analysisMin": 0,
+    "totalMin": 132,
+    "wakeTime": "06:40",
+    "sleepTime": "00:30",
+    "phoneEdu": 0,
+    "phoneNonEdu": 0,
+    "description": "",
+    "timestamp": "2026-06-27T20:21:38.064Z"
   }
 ]
