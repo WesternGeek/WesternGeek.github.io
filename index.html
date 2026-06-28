@@ -1,101 +1,1000 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گزارش‌کار روزانه المپیاد</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>گزارش‌کار روزانه المپیاد | لیست پویا</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+            background: #0b0f1a;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            color: #333;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 24px;
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
+
+        .glass-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 880px;
+            max-height: 95vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 40px;
+            padding: 32px 36px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+        }
+        .glass-container::-webkit-scrollbar { width: 5px; }
+        .glass-container::-webkit-scrollbar-track { background: transparent; }
+        .glass-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
 
         h1 {
-            text-align: center;
-            color: #1a73e8;
-            margin-bottom: 24px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0f4ff 0%, #a0c0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
         }
+        .subhead {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.3px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 18px;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+        .form-grid .full-width { grid-column: 1 / -1; }
 
         .form-group {
-            margin-bottom: 16px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #444;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border 0.2s;
-            background: #fafafa;
-        }
-
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #1a73e8;
-            background: #fff;
-        }
-
-        input[type="number"] {
-            width: 120px;
-            display: inline-block;
-        }
-
-        .row {
             display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4px;
+        }
+        .form-group input,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: #f0f4ff;
+            transition: all 0.25s ease;
+            outline: none;
+            width: 100%;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: rgba(120, 180, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(120, 180, 255, 0.08);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        .form-group input[type="number"]::-webkit-inner-spin-button,
+        .form-group input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .form-group textarea { min-height: 70px; resize: vertical; }
+
+        /* ---------- Dynamic Activity List ---------- */
+        .activity-list {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .activity-row {
+            display: flex;
+            gap: 10px;
             align-items: center;
+            margin-bottom: 8px;
         }
+        .activity-row:last-child { margin-bottom: 0; }
 
-        .row>* {
-            flex: 1 1 150px;
+        .activity-row input[type="text"] {
+            flex: 2;
+            min-width: 0;
         }
-
-        .row .label-inline {
-            flex: 0 0 auto;
-            font-weight: 600;
-            margin-left: 4px;
+        .activity-row input[type="number"] {
+            flex: 0 0 90px;
+            width: 90px;
+        }
+        .activity-row .btn-icon {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .activity-row .btn-icon:hover {
+            color: #f1948a;
+        }
+        .activity-row .btn-icon.add:hover {
+            color: #82e0aa;
         }
 
         .total-box {
-            background: #e8f0fe;
-            border-radius: 8px;
-            padding: 12px 16px;
+            background: rgba(120, 180, 255, 0.08);
+            border: 1px solid rgba(120, 180, 255, 0.15);
+            border-radius: 14px;
+            padding: 12px 20px;
             font-weight: 600;
-            color: #1a73e8;
-            border: 1px solid #d2e3fc;
+            font-size: 15px;
+            color: #a0c8ff;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .total-box span {
+            font-weight: 700;
+            color: #f0f4ff;
         }
 
+        /* ---------- Buttons ---------- */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.06);
+            color: #e8edf5;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4a7cf7, #6a5acd);
+            color: #fff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a8cff, #7a6add);
+            box-shadow: 0 8px 30px rgba(74, 124, 247, 0.3);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: #fff;
+            border: none;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #3ddc84, #2ecc71);
+            box-shadow: 0 8px 30px rgba(46, 204, 113, 0.3);
+        }
+        .btn-danger {
+            background: rgba(231, 76, 60, 0.2);
+            color: #f1948a;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+        .btn-danger:hover {
+            background: rgba(231, 76, 60, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 13px;
+        }
+        .btn-icon {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+        }
+        .btn-icon:hover {
+            color: #82e0aa;
+        }
+
+        /* ---------- GitHub Section ---------- */
+        .github-section {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .github-section .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: flex-end;
+        }
+        .github-section .row .form-group {
+            flex: 1 1 180px;
+        }
+
+        .status-msg {
+            padding: 10px 16px;
+            border-radius: 14px;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        .status-msg.success {
+            display: block;
+            background: rgba(46, 204, 113, 0.12);
+            color: #82e0aa;
+            border: 1px solid rgba(46, 204, 113, 0.15);
+        }
+        .status-msg.error {
+            display: block;
+            background: rgba(231, 76, 60, 0.12);
+            color: #f1948a;
+            border: 1px solid rgba(231, 76, 60, 0.15);
+        }
+        .token-status {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+        .token-status.saved {
+            color: #82e0aa;
+        }
+
+        /* ---------- Entries List ---------- */
+        .entries-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .entries-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+        }
+
+        .entry-item {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            transition: 0.2s;
+        }
+        .entry-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .entry-item .info { flex: 1; min-width: 0; }
+        .entry-item .info .meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 14px;
+            margin-bottom: 4px;
+        }
+        .entry-item .info .meta .date {
+            font-weight: 600;
+            color: #a0c8ff;
+            font-size: 14px;
+        }
+        .entry-item .info .meta .name {
+            font-weight: 500;
+            color: #e8edf5;
+        }
+        .entry-item .info .meta .badge {
+            background: rgba(120, 180, 255, 0.12);
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #a0c8ff;
+        }
+        .entry-item .info .details {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+        }
+        .entry-item .info .details .activity-item {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin: 2px 4px 2px 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .entry-item .delete-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .entry-item .delete-btn:hover {
+            color: #f1948a;
+        }
+        .empty-msg {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.25);
+            padding: 30px 0;
+            font-size: 15px;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 700px) {
+            .glass-container { padding: 20px 18px; border-radius: 28px; }
+            .form-grid { grid-template-columns: 1fr; gap: 14px; }
+            .activity-row { flex-wrap: wrap; }
+            .activity-row input[type="number"] { flex: 1 1 80px; width: auto; }
+            .btn-group { flex-direction: column; }
+            .btn { justify-content: center; }
+            .github-section .row { flex-direction: column; align-items: stretch; }
+            h1 { font-size: 22px; }
+        }
+        @media (max-width: 480px) {
+            .glass-container { padding: 16px 14px; border-radius: 20px; }
+            .entry-item { flex-direction: column; }
+            .entry-item .delete-btn { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <div class="glass-container">
+
+        <h1>🚀 گزارش‌کار روزانه</h1>
+        <div class="subhead">المپیاد علمی · لیست پویای فعالیت‌ها</div>
+
+        <!-- ==========================================================
+        FORM
+        ========================================================== -->
+        <form id="reportForm">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>📅 تاریخ</label>
+                    <input type="text" id="date" readonly style="background:rgba(255,255,255,0.04); cursor:default;" />
+                </div>
+                <div class="form-group">
+                    <label>👤 نام و نام خانوادگی</label>
+                    <input type="text" id="name" placeholder="مثال: مهرزاد سعیدا" required />
+                </div>
+            </div>
+
+            <!-- ==========================================================
+            DYNAMIC ACTIVITY LIST
+            ========================================================== -->
+            <div class="form-group full-width" style="margin-top:6px;">
+                <label>📚 فعالیت‌های آموزشی</label>
+                <div class="activity-list" id="activityList">
+                    <!-- rows will be added here by JavaScript -->
+                </div>
+                <button type="button" id="addActivityBtn" class="btn btn-outline btn-sm" style="margin-top:8px;">
+                    <i class="fas fa-plus"></i> افزودن فعالیت
+                </button>
+                <div class="total-box">
+                    مجموع فعالیت درسی: <span id="totalMin">0</span> دقیقه
+                </div>
+            </div>
+
+            <!-- ساعت بیداری + خواب -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>⏰ ساعت بیداری صبح</label>
+                    <input type="time" id="wakeTime" value="06:40" />
+                </div>
+                <div class="form-group">
+                    <label>🛌 ساعت خواب شب</label>
+                    <input type="time" id="sleepTime" value="00:30" />
+                </div>
+            </div>
+
+            <!-- گوشی -->
+            <div class="form-group full-width">
+                <label>📱 کار با گوشی (دقیقه)</label>
+                <div class="activity-list" style="border:none; padding:0; background:transparent;">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:140px;">
+                            <label style="font-size:13px; color:rgba(255,255,255,0.5);">استفاده درسی</label>
+                            <input type="number" id="phoneEdu" min="0" value="0" style="width:100%;" />
+                        </div>
+                        <div style="flex:1; min-width:140px;">
+                            <label style="font-size:13px; color:rgba(255,255,255,0.5);">استفاده غیردرسی</label>
+                            <input type="number" id="phoneNonEdu" min="0" value="0" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- توضیحات -->
+            <div class="form-group full-width">
+                <label>📝 توضیحات (اختیاری)</label>
+                <textarea id="description" placeholder="هر نکته یا توضیح اضافه…"></textarea>
+            </div>
+
+            <!-- buttons -->
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> ذخیره محلی</button>
+                <button type="reset" class="btn btn-outline"><i class="fas fa-undo"></i> پاک کردن فرم</button>
+            </div>
+        </form>
+
+        <!-- ==========================================================
+        GITHUB SYNC
+        ========================================================== -->
+        <div class="github-section">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                <i class="fab fa-github" style="font-size:20px; color:rgba(255,255,255,0.4);"></i>
+                <span style="font-weight:600; font-size:15px; color:rgba(255,255,255,0.7);">همگام‌سازی با GitHub</span>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>مالک / مخزن</label>
+                    <input type="text" id="githubRepo" placeholder="username/repo-name" />
+                </div>
+                <div class="form-group" style="flex:2;">
+                    <label>توکن شخصی (دسترسی repo)</label>
+                    <div style="display:flex; gap:8px;">
+                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx" style="flex:1;" />
+                        <button type="button" id="saveTokenBtn" class="btn btn-success btn-sm" style="white-space:nowrap;">
+                            <i class="fas fa-check"></i> ذخیره توکن
+                        </button>
+                    </div>
+                    <div id="tokenStatus" class="token-status"></div>
+                </div>
+            </div>
+
+            <div class="btn-group" style="margin-top:10px;">
+                <button id="pushToGithubBtn" class="btn btn-success"><i class="fas fa-cloud-upload-alt"></i> ذخیره در GitHub</button>
+                <button id="pullFromGithubBtn" class="btn btn-outline"><i class="fas fa-cloud-download-alt"></i> بازیابی از GitHub</button>
+                <button id="clearTokenBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> حذف توکن</button>
+            </div>
+
+            <div id="githubStatus" class="status-msg"></div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.2); margin-top:6px;">
+                <i class="fas fa-shield-alt"></i> توکن فقط در مرورگر شما ذخیره می‌شود.
+            </div>
+        </div>
+
+        <!-- ==========================================================
+        ENTRIES LIST
+        ========================================================== -->
+        <div class="entries-section">
+            <h2><i class="far fa-file-alt" style="margin-left:8px;"></i> گزارش‌های قبلی</h2>
+            <div id="entriesContainer">
+                <div class="empty-msg">هنوز گزارشی ثبت نشده است.</div>
+            </div>
+
+            <div class="btn-group" style="margin-top:12px;">
+                <button id="exportBtn" class="btn btn-outline btn-sm"><i class="fas fa-file-export"></i> خروجی JSON</button>
+                <button id="clearAllBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> حذف همه</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. STARFIELD
+        // ============================================================
+        (function initStars() {
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            const stars = [];
+            const COUNT = 180;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            for (let i = 0; i < COUNT; i++) {
+                stars.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 1.6 + 0.4,
+                    a: Math.random() * 0.8 + 0.2,
+                    dx: (Math.random() - 0.5) * 0.15,
+                    dy: (Math.random() - 0.5) * 0.15,
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                for (const s of stars) {
+                    s.x += s.dx;
+                    s.y += s.dy;
+                    if (s.x < 0) s.x = w;
+                    if (s.x > w) s.x = 0;
+                    if (s.y < 0) s.y = h;
+                    if (s.y > h) s.y = 0;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+
+        // ============================================================
+        // 2. DATE & TOTAL
+        // ============================================================
+        function getTodayPersian() {
+            return new Date().toLocaleDateString('fa-IR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+        }
+        document.getElementById('date').value = getTodayPersian();
+
+        // ============================================================
+        // 3. DYNAMIC ACTIVITY LIST
+        // ============================================================
+        const activityList = document.getElementById('activityList');
+        let activityRows = [];
+
+        function createActivityRow(title = '', minutes = 0) {
+            const row = document.createElement('div');
+            row.className = 'activity-row';
+
+            const titleInput = document.createElement('input');
+            titleInput.type = 'text';
+            titleInput.placeholder = 'موضوع فعالیت (مثلاً: ریاضی)';
+            titleInput.value = title;
+
+            const minutesInput = document.createElement('input');
+            minutesInput.type = 'number';
+            minutesInput.min = 0;
+            minutesInput.value = minutes;
+            minutesInput.placeholder = 'دقیقه';
+
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'btn-icon';
+            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            removeBtn.addEventListener('click', function() {
+                row.remove();
+                updateTotal();
+            });
+
+            row.appendChild(titleInput);
+            row.appendChild(minutesInput);
+            row.appendChild(removeBtn);
+
+            // Update total when any input changes
+            titleInput.addEventListener('input', updateTotal);
+            minutesInput.addEventListener('input', updateTotal);
+
+            return row;
+        }
+
+        function addActivityRow(title = '', minutes = 0) {
+            const row = createActivityRow(title, minutes);
+            activityList.appendChild(row);
+            updateTotal();
+        }
+
+        // Add initial 3 rows (like before)
+        addActivityRow('کلاس', 0);
+        addActivityRow('مطالعه', 0);
+        addActivityRow('آزمون', 0);
+        // Optionally add a 4th one for analysis
+        addActivityRow('تحلیل آزمون', 0);
+
+        // Add button
+        document.getElementById('addActivityBtn').addEventListener('click', function() {
+            addActivityRow('', 0);
+        });
+
+        function getActivities() {
+            const rows = activityList.querySelectorAll('.activity-row');
+            const activities = [];
+            rows.forEach(row => {
+                const title = row.querySelector('input[type="text"]').value.trim();
+                const minutes = parseInt(row.querySelector('input[type="number"]').value) || 0;
+                if (title || minutes > 0) {
+                    activities.push({ title: title || 'بدون عنوان', minutes });
+                }
+            });
+            return activities;
+        }
+
+        function updateTotal() {
+            const activities = getActivities();
+            const total = activities.reduce((sum, a) => sum + a.minutes, 0);
+            document.getElementById('totalMin').textContent = total;
+            return total;
+        }
+
+
+        // ============================================================
+        // 4. LOCAL STORAGE – entries
+        // ============================================================
+        function getEntries() {
+            try { return JSON.parse(localStorage.getItem('olympiad_reports')) || []; } catch { return []; }
+        }
+
+        function saveEntries(entries) {
+            localStorage.setItem('olympiad_reports', JSON.stringify(entries));
+        }
+
+        function addEntry(entry) {
+            const entries = getEntries();
+            entries.push(entry);
+            saveEntries(entries);
+            renderEntries();
+        }
+
+        function deleteEntry(index) {
+            const entries = getEntries();
+            entries.splice(index, 1);
+            saveEntries(entries);
+            renderEntries();
+        }
+
+        function clearAllEntries() {
+            if (confirm('آیا از حذف همه گزارش‌ها مطمئن هستید؟')) {
+                saveEntries([]);
+                renderEntries();
+            }
+        }
+
+
+        // ============================================================
+        // 5. RENDER ENTRIES
+        // ============================================================
+        function renderEntries() {
+            const container = document.getElementById('entriesContainer');
+            const entries = getEntries();
+            if (entries.length === 0) {
+                container.innerHTML = '<div class="empty-msg">هنوز گزارشی ثبت نشده است.</div>';
+                return;
+            }
+            let html = '';
+            entries.forEach((e, i) => {
+                // Build activity list string
+                let activitiesHtml = '';
+                if (e.activities && e.activities.length) {
+                    activitiesHtml = e.activities.map(a =>
+                        `<span class="activity-item">${a.title}: ${a.minutes} min</span>`
+                    ).join(' ');
+                } else {
+                    // Fallback for old data
+                    activitiesHtml = `کلاس: ${e.classMin || 0} | مطالعه: ${e.studyMin || 0} | آزمون: ${e.examMin || 0} | تحلیل: ${e.analysisMin || 0}`;
+                }
+
+                html += `
+                    <div class="entry-item">
+                        <div class="info">
+                            <div class="meta">
+                                <span class="date">${e.date}</span>
+                                <span class="name">${e.name || 'بدون نام'}</span>
+                                <span class="badge">مجموع: ${e.totalMin} دقیقه</span>
+                            </div>
+                            <div class="details">
+                                ${activitiesHtml}
+                                <br>
+                                بیداری: ${e.wakeTime || '—'} | خواب: ${e.sleepTime || '—'} | گوشی درسی: ${e.phoneEdu || 0} | غیردرسی: ${e.phoneNonEdu || 0}
+                                ${e.description ? `<br>📝 ${e.description}` : ''}
+                            </div>
+                        </div>
+                        <button class="delete-btn" data-index="${i}" title="حذف"><i class="fas fa-times"></i></button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    deleteEntry(parseInt(this.dataset.index));
+                });
+            });
+        }
+
+
+        // ============================================================
+        // 6. FORM SUBMIT (local)
+        // ============================================================
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            if (!name) { alert('لطفاً نام خود را وارد کنید.'); return; }
+
+            const activities = getActivities();
+            const totalMin = activities.reduce((sum, a) => sum + a.minutes, 0);
+
+            const entry = {
+                date: document.getElementById('date').value,
+                name: name,
+                activities: activities,
+                totalMin: totalMin,
+                wakeTime: document.getElementById('wakeTime').value,
+                sleepTime: document.getElementById('sleepTime').value,
+                phoneEdu: parseInt(document.getElementById('phoneEdu').value) || 0,
+                phoneNonEdu: parseInt(document.getElementById('phoneNonEdu').value) || 0,
+                description: document.getElementById('description').value.trim(),
+                timestamp: new Date().toISOString()
+            };
+
+            addEntry(entry);
+            // Reset form but keep date
+            this.reset();
+            document.getElementById('date').value = getTodayPersian();
+            // Reset activity rows to default 4
+            activityList.innerHTML = '';
+            addActivityRow('کلاس', 0);
+            addActivityRow('مطالعه', 0);
+            addActivityRow('آزمون', 0);
+            addActivityRow('تحلیل آزمون', 0);
+            updateTotal();
+            alert('✅ گزارش ذخیره شد.');
+        });
+
+
+        // ============================================================
+        // 7. EXPORT / CLEAR
+        // ============================================================
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            const entries = getEntries();
+            if (!entries.length) { alert('هیچ داده‌ای وجود ندارد.'); return; }
+            const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `olympiad_reports_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('clearAllBtn').addEventListener('click', clearAllEntries);
+
+
+        // ============================================================
+        // 8. GITHUB TOKEN (localStorage)
+        // ============================================================
+        function loadToken() {
+            const token = localStorage.getItem('github_token');
+            const repo = localStorage.getItem('github_repo');
+            if (token) {
+                document.getElementById('githubToken').value = token;
+                document.getElementById('tokenStatus').textContent = '✅ توکن ذخیره شده';
+                document.getElementById('tokenStatus').className = 'token-status saved';
+            }
+            if (repo) document.getElementById('githubRepo').value = repo;
+        }
+
+        document.getElementById('saveTokenBtn').addEventListener('click', function() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+            if (!token) { alert('لطفاً توکن را وارد کنید.'); return; }
+            localStorage.setItem('github_token', token);
+            if (repo) localStorage.setItem('github_repo', repo);
+            document.getElementById('tokenStatus').textContent = '✅ توکن ذخیره شد';
+            document.getElementById('tokenStatus').className = 'token-status saved';
+            alert('✅ توکن ذخیره شد.');
+        });
+
+        document.getElementById('clearTokenBtn').addEventListener('click', function() {
+            if (confirm('حذف توکن ذخیره‌شده؟')) {
+                localStorage.removeItem('github_token');
+                localStorage.removeItem('github_repo');
+                document.getElementById('githubToken').value = '';
+                document.getElementById('githubRepo').value = '';
+                document.getElementById('tokenStatus').textContent = '❌ توکن حذف شد';
+                document.getElementById('tokenStatus').className = 'token-status';
+            }
+        });
+
+        loadToken();
+
+
+        // ============================================================
+        // 9. GITHUB API – PUSH / PULL
+        // ============================================================
+        function showGithubStatus(msg, ok = true) {
+            const el = document.getElementById('githubStatus');
+            el.textContent = msg;
+            el.className = 'status-msg ' + (ok ? 'success' : 'error');
+            el.style.display = 'block';
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => { el.style.display = 'none'; }, 6000);
+        }
+
+        async function pushToGithub() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            if (!repo || !token) {
+                showGithubStatus('❌ مخزن و توکن را وارد کنید.', false);
+                return;
+            }
+            const entries = getEntries();
+            if (!entries.length) {
+                showGithubStatus('❌ هیچ داده‌ای برای ذخیره وجود ندارد.', false);
+                return;
+            }
+
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/reports.json`;
+            try {
+                let sha = null;
+                try {
+                    const res = await fetch(apiUrl, {
+                        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        sha = data.sha;
+                    } else if (res.status !== 404) {
+                        const err = await res.json();
+                        showGithubStatus(`❌ ${err.message || res.status}`, false);
+                        return;
+                    }
+                } catch (_) {}
+
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(entries, null, 2))));
+                const payload = {
+                    message: `به‌روزرسانی گزارش‌ها - ${new Date().toLocaleString('fa-IR')}`,
+                    content: content,
+                    branch: 'main'
+                };
+                if (sha) payload.sha = sha;
+
+                const resp = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (resp.ok) {
+                    showGithubStatus('✅ داده‌ها در GitHub ذخیره شدند!', true);
+                } else {
+                    const err = await resp.json();
+                    showGithubStatus(`❌ ${err.message || resp.status}`, false);
+                }
+            } catch (err) {
+                showGithubStatus(`❌ ${err.message}`, false);
+            }
+        }
+
+        async function pullFromGithub() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            if (!repo || !token) {
+                showGithubStatus('❌ مخزن و توکن را وارد کنید.', false);
+                return;
+            }
+
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/reports.json`;
+            try {
+                const resp = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!resp.ok) {
+                    if (resp.status === 404) {
+                        showGithubStatus('⚠️ فایل reports.json در مخزن وجود ندارد.', false);
+                    } else {
+                        const err = await resp.json();
+                        showGithubStatus(`❌ ${err.message || resp.status}`, false);
+                    }
+                    return;
+                }
+                const data = await resp.json();
+                const content = decodeURIComponent(escape(atob(data.content)));
+                const entries = JSON.parse(content);
+                if (!Array.isArray(entries)) {
+                    showGithubStatus('❌ فرمت داده‌ها معتبر نیست.', false);
+                    return;
+                }
+                saveEntries(entries);
+                renderEntries();
+                showGithubStatus(`✅ ${entries.length} گزارش از GitHub بازیابی شد.`, true);
+            } catch (err) {
+                showGithubStatus(`❌ ${err.message}`, false);
+            }
+        }
+
+        document.getElementById('pushToGithubBtn').addEventListener('click', pushToGithub);
+        document.getElementById('pullFromGithubBtn').addEventListener('click', pullFromGithub);
+
+        // ============================================================
+        // 10. INIT
+        // ============================================================
+        renderEntries();
+    </script>
+
+</body>
+</html>
         .btn {
             background: #1a73e8;
             color: #fff;
